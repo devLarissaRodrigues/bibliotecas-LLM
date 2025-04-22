@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bibliotecas de XAI</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.2/dist/echarts.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .buttons {
+            margin-bottom: 20px;
+        }
+        button {
+            font-size: 16px;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+        #chart {
+            width: 100%;
+            height: 600px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="buttons">
+        <button onclick="loadChart('scienceDirect')">Science Direct</button>
+        <button onclick="loadChart('ieeeXplore')">IEEE Xplore</button>
+        <button onclick="loadChart('arxiv')">arXiv</button>
+        <button onclick="loadChart('googleScholar')">Google Scholar</button>
+    </div>
+
+    <h1>Quantificação de artigos sobre Bibliotecas de XAI: Visão geral com enfoque nos anos 2024 e 2025</h1>
+
+    <div id="chart"></div>
+
+    <script>
+        var chart = echarts.init(document.getElementById('chart'));
+
+        const datasets = {
+            scienceDirect: {
+                title: 'Quantificação de artigos do Science Direct sobre Bibliotecas de XAI: Visão geral com enfoque nos anos 2024 e 2025',
+                data2024: [0, 0, 2, 2, 1, 1, 23, 46, 65, 108, 130, 83, 546],
+                data2025: [0, 9, 1, 7, 0, 2, 33, 65, 62, 150, 161, 92, 518],
+                demaisAnos: [0, 11, 3, 18, 1, 4, 93, 121, 147, 279, 346, 421, 1444]
+            },
+            ieeeXplore: {
+                title: 'Quantificação de artigos do IEEE Xplore sobre Bibliotecas de XAI: Visão geral com enfoque nos anos 2024 e 2025',
+                data2024: [967, 384, 575, 2, 0, 0, 0, 11, 0, 25, 1, 0, 11],
+                data2025: [196, 66, 127, 1, 0, 0, 1, 1, 0, 8, 0, 0, 2],
+                demaisAnos: [2059, 721, 1228, 19, 0, 0, 3, 27, 0, 69, 2, 0, 24]
+            },
+            arxiv: {
+                title: 'Quantificação de artigos do arXiv sobre Bibliotecas de XAI: Visão geral com enfoque nos anos 2024 e 2025',
+                data2024: [385, 68, 132, 12, 0, 11, 68, 3, 1, 9, 63, 1, 5],
+                data2025: [179, 27, 66, 7, 0, 2, 34, 2, 0, 3, 28, 0, 0],
+                demaisAnos: [1096, 277, 413, 29, 4, 22, 259, 10, 2, 24, 228, 2, 8]
+            },
+            googleScholar: {
+                title: 'Quantificação de artigos do Google Scholar sobre Bibliotecas de XAI: Visão geral com enfoque nos anos 2024 e 2025',
+                data2024: [17700, 1940, 17500, 286, 5, 3190, 671, 9, 86, 401, 51, 10, 3900],
+                data2025: [4570, 560, 5490, 62, 2, 880, 158, 1, 20, 115, 11, 4, 900],
+                demaisAnos: [48900, 35200, 50200, 1470, 82, 10500, 2040, 19, 848, 555, 1120, 76, 6730]
+            }
+        };
+
+        const libs = ['ExplainaBoard', 'eli5', 'OmniXAI', 'Alibi', 'SALib', 'InterpretML', 'DiCE-ML', 'FastTreeShap', 'Explainer dashboard', 'SHAP', 'XAI', 'LIME', 'Interpret-Community'];
+
+        function loadChart(source) {
+            const data = datasets[source];
+            const option = {
+                title: {
+                    text: data.title,
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
+                legend: {
+                    data: ['2024', '2025', 'Demais anos'],
+                    top: 30
+                },
+                grid: {
+                    top: 80,
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'value'
+                },
+                yAxis: {
+                    type: 'category',
+                    data: libs
+                },
+                series: [
+                    {
+                        name: '2024',
+                        type: 'bar',
+                        stack: 'total',
+                        label: { show: true },
+                        emphasis: { focus: 'series' },
+                        data: data.data2024
+                    },
+                    {
+                        name: '2025',
+                        type: 'bar',
+                        stack: 'total',
+                        label: { show: true },
+                        emphasis: { focus: 'series' },
+                        data: data.data2025
+                    },
+                    {
+                        name: 'Demais anos',
+                        type: 'bar',
+                        stack: 'total',
+                        label: { show: true },
+                        emphasis: { focus: 'series' },
+                        data: data.demaisAnos
+                    }
+                ]
+            };
+            chart.setOption(option);
+        }
+
+        // Inicializa com o gráfico do Science Direct
+        loadChart('scienceDirect');
+    </script>
+
+</body>
+</html>
