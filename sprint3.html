@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bibliotecas de XAI</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.3.2/dist/echarts.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .buttons {
+            margin-bottom: 20px;
+        }
+        button {
+            font-size: 16px;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+        #chart {
+            width: 100%;
+            height: 600px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quantificação de artigos sobre Bibliotecas de XAI: Visão geral com enfoque nos anos 2024 e 2025</h1>
+
+    <div id="chart"></div>
+
+    <script>
+        var chart = echarts.init(document.getElementById('chart'));
+
+        const datasets = {
+            googleScholar: {
+                title: 'Google Scholar',
+                data2024: [15000, 17500, 1970,93,23,24,127,594,5,295],
+                data2025: [2970, 5490, 552,29,4,8,35,218,0,71],
+                demaisAnos: [35400, 50200, 2520,123,112,33,159,720,6,2510]
+            },
+        };
+
+
+        const libs = ['LIME','SHAP','sklearn.inspection','Skater','Yellowbrick','OpenXAI','Captum','Grad-CAM','tf-explain','Lucid'];
+
+        function loadChart(source) {
+            const data = datasets[source];
+            const option = {
+                color: ['#4C72B0', '#55A868', '#C44E52'],
+                backgroundColor: '#f4f4f4',
+                title: {
+                    text: data.title,
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
+                legend: {
+                    data: ['Publicações em 2024', 'Publicações em 2025', 'Total de artigos ao decorrer dos anos'],
+                    top: 30
+                },
+                grid: {
+                    top: 80,
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'value'
+                },
+                yAxis: {
+                    type: 'category',
+                    data: libs
+                },
+                series: [
+                    {
+                        name: 'Publicações em 2024',
+                        type: 'bar',
+                        stack: 'total',
+                        label: { show: true },
+                        emphasis: { focus: 'series' },
+                        data: data.data2024
+                    },
+                    {
+                        name: 'Publicações em 2025',
+                        type: 'bar',
+                        stack: 'total',
+                        label: { show: true },
+                        emphasis: { focus: 'series' },
+                        data: data.data2025
+                    },
+                    {
+                        name: 'Total de artigos ao decorrer dos anos',
+                        type: 'bar',
+                        stack: 'total',
+                        label: { show: true },
+                        emphasis: { focus: 'series' },
+                        data: data.demaisAnos
+                    }
+                ]
+            };
+            chart.setOption(option);
+        }
+
+        // Inicializa com o gráfico do Google Scholar
+        loadChart('googleScholar');
+    </script>
+
+</body>
+</html>
